@@ -1,0 +1,22 @@
+#!/bin/bash
+
+volumes="$(docker volume ls -q -f "dangling=true")"
+if [ -z "$volumes" ]; then
+	echo -e "\nNo dangling volumes found\n"
+	exit
+fi
+
+echo -e "\nDangling volumes...\n"
+docker volume ls -f "dangling=true"
+
+echo -en "\nDo you want to remove dangling volumes? (Y/n): "
+read -n 1 removevols
+
+if [ "$removevols" == "Y" ]; then
+	echo -e "\nRemoving dangling volumes...\n"
+	docker volume rm $volumes
+else
+	echo -e "\nNothing removed"
+fi
+
+echo

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+exited="$(docker ps -q -f "status=exited")"
+if [ -z "$exited" ]; then
+	echo -e "\nNo exited containers found\n"
+	exit
+fi
+
+echo -e "\nExited containers...\n"
+docker ps -a -f "status=exited"
+
+echo -en "\nDo you want to remove these containers? (Y/n): "
+read -n 1 removecontainers
+
+if [ "$removecontainers" == "Y" ]; then
+	echo -e "\nRemoving exited containers...\n"
+	docker rm $exited
+else
+	echo -e "\nNothing removed"
+fi
+
+echo

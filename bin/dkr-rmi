@@ -1,0 +1,22 @@
+#!/bin/bash
+
+dangling="$(docker images -q -f "dangling=true")"
+if [ -z "$dangling" ]; then
+        echo -e "\nNo dangling images found\n"
+        exit
+fi
+
+echo -e "\nDangling images...\n"
+docker images -a -f "dangling=true"
+
+echo -en "\nDo you want to remove these images? (Y/n): "
+read -n 1 removeimages
+
+if [ "$removeimages" == "Y" ]; then
+	echo -e "\nRemoving dangling images...\n"
+	docker rmi $dangling
+else
+	echo -e "\nNothing removed"
+fi
+
+echo

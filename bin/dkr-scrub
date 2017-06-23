@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Containers
+echo -e "\n########## Removing containers ##########"
+#docker rm $(docker ps -a -q -f "status=exited")
+dkr-rmc
+
+# Images
+echo -e "\n########## Removing images ##########"
+#docker rmi $(docker images -a -q -f "dangling=true")
+dkr-rmi
+
+# Volumes
+echo -e "\n########## Removing volumes ##########"
+#docker volume rm $(docker volume ls -q -f "dangling=true")
+dkr-rmv
+
+echo
