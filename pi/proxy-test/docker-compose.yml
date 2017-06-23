@@ -1,0 +1,24 @@
+# Nginx test instance
+#
+# Resources
+# Article: https://fourteenislands.io/2016/04/nginx-reverse-proxy-docker-and-a-raspberry-pi/
+# jwilder repo: https://github.com/jwilder/nginx-proxy
+
+version: '3'
+
+services:
+  web:
+    #container_name: nginx-test
+    image: lroguet/rpi-nginx:latest
+    environment:
+    - VIRTUAL_HOST=test.dockerpi.dev
+    volumes:
+      - $PWD/html:/var/www/html
+    networks:
+      - proxy
+      - default
+
+networks:
+  proxy:
+    external:
+      name: proxy
