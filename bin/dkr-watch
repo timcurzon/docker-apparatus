@@ -1,5 +1,4 @@
 #!/bin/bash
 
-#watch -n 2 'docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Command}}\t{{.Ports}}\t{{.Names}}\t{{.Networks}}"'
-
-watch -n 2 'docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}\t{{.Networks}}"'
+watch -n 2 'docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Command}}\t{{.Ports}}\t{{.Names}}\t{{.Networks}}"'
+# watch -n 2 'docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}\t{{.Networks}}"'
