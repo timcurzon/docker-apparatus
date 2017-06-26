@@ -1,0 +1,19 @@
+#!/bin/bash
+
+PROJECTDIR=`pwd`
+DEFAULTDIR="/usr/local/bin"
+
+echo -n "Enter the absolute install path for the project scripts: "
+read INSTALLDIR
+
+if [ "$INSTALLDIR" = "" ]; then
+  INSTALLDIR=$DEFAULTDIR
+  echo "Using default install dir:" $INSTALLDIR
+else
+  echo "Installing scripts into:" $INSTALLDIR
+fi
+
+for f in $( ls ./bin ); do
+  echo "Installing $PROJECTDIR/bin/$f into $INSTALLDIR/$f"
+  ln -s $PROJECTDIR/bin/$f $INSTALLDIR/$f
+done
