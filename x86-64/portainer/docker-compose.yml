@@ -1,0 +1,18 @@
+# Container management UI
+#
+# Resources
+# Website: https://portainer.io/install.html
+
+version: '3'
+
+services:
+  portainer:
+    container_name: portainer
+    image: portainer/portainer:latest
+    networks:
+      - default
+    ports:
+     - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
