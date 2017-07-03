@@ -10,12 +10,15 @@ services:
   nginx-proxy:
     container_name: proxy
     image: lroguet/rpi-nginx-proxy:latest
+    environment:
+      - DEFAULT_HOST=pihole.dockerpi.homedev
     networks:
       - proxy
     ports:
      - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - $PWD/default:/etc/nginx/sites-available/default
     restart: unless-stopped
 
 networks:
