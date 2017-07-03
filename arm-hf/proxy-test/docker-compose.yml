@@ -11,7 +11,7 @@ services:
     #container_name: nginx-test
     image: lroguet/rpi-nginx:latest
     environment:
-    - VIRTUAL_HOST=test.dockerpi.dev
+    - VIRTUAL_HOST=test.dockerpi.homedev
     volumes:
       - $PWD/html:/var/www/html
     networks:
