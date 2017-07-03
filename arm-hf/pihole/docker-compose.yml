@@ -6,9 +6,11 @@ services:
   dns:
     image: diginc/pi-hole:arm
     env_file: .env
+    environment:
+      - VIRTUAL_HOST=pihole.dockerpi.homedev
     volumes:
       - $PWD/configs/pihole/:/etc/pihole/
-      - $PWD/config/dnsmasq.d/:/etc/dnsmasq.d/
+      - $PWD/configs/dnsmasq.d/:/etc/dnsmasq.d/
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -16,6 +18,7 @@ services:
     networks:
       - proxy
       - default
+    restart: unless-stopped
 
 networks:
   proxy:
