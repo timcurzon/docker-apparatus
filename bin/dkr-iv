@@ -1,0 +1,3 @@
+#!/bin/bash
+
+watch -n2 'docker image ls; printf "\n\n"; docker volume ls'

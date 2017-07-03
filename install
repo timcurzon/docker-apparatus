@@ -15,5 +15,5 @@ fi
 
 for f in $( ls ./bin ); do
   echo "Installing $PROJECTDIR/bin/$f into $INSTALLDIR/$f"
-  ln -s $PROJECTDIR/bin/$f $INSTALLDIR/$f
+  ln -sf $PROJECTDIR/bin/$f $INSTALLDIR/$f
 done
