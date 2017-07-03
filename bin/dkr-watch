@@ -1,8 +1,13 @@
 #!/bin/bash
 
-if [ "$1" = "-v" ]; then
-  watch -n 2 'docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Command}}\t{{.Ports}}\t{{.Names}}\t{{.Networks}}"'
+FORMAT=""
+
+if [ "$1" = "-vv" ]; then
+  FORMAT="\"table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Command}}\t{{.Ports}}\t{{.Names}}\t{{.Networks}}\""
+elif [ "$1" = "-v" ]; then
+  FORMAT="\"table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}\t{{.Networks}}\""
 else
-  watch -n 2 'docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}\t{{.Networks}}"'
+  FORMAT="\"table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}\t{{.Networks}}\""
 fi
 
+watch -n 2 docker ps --format $FORMAT
