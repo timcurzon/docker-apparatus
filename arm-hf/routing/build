@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Nginx proxy setup -----
+
+if [ $( docker network ls --format="{{.Name}}" | grep -E "^proxy$" ) ]; then
+  echo "Proxy network already setup, skipping..."
+else
+  echo "Setting up proxy network..."
+  docker network create proxy
+fi
+
+# Pi-hole setup -----
+
+mkdir -pv configs/dnsmasq.d
+mkdir -pv configs/pihole
+
+IP_LOOKUP="$(ip route get 8.8.8.8 | awk '{ print $NF; exit }')"
+IP="${IP:-$IP_LOOKUP}"
+#IPv6_LOOKUP="$(ip -6 route get 2001:4860:4860::8888 | awk '{ print $10; exit }')"
+#IPv6="${IPv6:-$IPv6_LOOKUP}"
+
+rm -f .env
+echo "ServerIP=$IP" >> .env
+echo "WEBPASSWORD=$PIHOLEAUTH" >> .env
+echo "Created .env file as follows:"
+cat .env

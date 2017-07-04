@@ -1,2 +1,5 @@
 arm-hf/pihole/.env
 arm-hf/pihole/configs
+arm-hf/routing/.env
+arm-hf/routing/configs/dnsmasq.*
+arm-hf/routing/configs/pihole
