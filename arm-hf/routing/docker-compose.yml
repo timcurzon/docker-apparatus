@@ -1,5 +1,7 @@
-# Core routing
-# Nginx reverse proxy (jwilder based implementation) + Pihole DNS filter
+# ===== Core routing services =====
+#
+# Nginx reverse proxy (jwilder based implementation)
+# Pihole DNS filter
 #
 # ----- Notes -----
 #
@@ -35,7 +37,6 @@ services:
     env_file: .env
     environment:
       - VIRTUAL_HOST=pihole.dockerpi.homedev
-      - VIRTUAL_PORT=80
     volumes:
       - $PWD/configs/pihole/:/etc/pihole/
       - $PWD/configs/dnsmasq.d/:/etc/dnsmasq.d/
