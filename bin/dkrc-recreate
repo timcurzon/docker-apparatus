@@ -1,0 +1,13 @@
+#!/bin/bash
+
+SERVICE=$1
+
+if [ "$SERVICE" == "" ]; then
+  echo "Please provide a service name..."
+  exit
+fi
+
+docker-compose stop $SERVICE
+docker-compose rm -f $SERVICE
+docker-compose create $SERVICE
+docker-compose start $SERVICE
