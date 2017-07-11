@@ -1,0 +1,24 @@
+# Nginx reverse proxy based on the jwilder implementation
+#
+# Resources
+# Article: https://fourteenislands.io/2016/04/nginx-reverse-proxy-docker-and-a-raspberry-pi/
+# jwilder repo: https://github.com/jwilder/nginx-proxy
+
+version: '3'
+
+services:
+  nginx-proxy:
+    container_name: proxy
+    image: jwilder/nginx-proxy:latest
+    networks:
+      - proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external:
+      name: proxy
