@@ -16,6 +16,7 @@ RUN pip install setuptools \
   && pip install hieroglyph
 
 RUN mkdir -p /tmp/build \
+  && mkdir -p /tmp/export \
   && cd /tmp/build && git clone git://github.com/OpenDSA/OpenDSA.git \
   && cd /tmp/build/OpenDSA && git submodule init && make pull \
   && cd /tmp/build/OpenDSA/JSAV && git pull https://github.com/vkaravir/JSAV \
