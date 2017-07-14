@@ -4,11 +4,10 @@ MAINTAINER Tim Curzon "timcurzon@users.noreply.github.com"
 
 RUN apt-get update \
   && apt-get install --no-install-recommends --no-install-suggests -y \
-    ca-certificates make git python python-pip
-
-#RUN apt-get update \
-#  && apt-get install --no-install-suggests -y \
-#    default-jre
+    ca-certificates make git python python-pip \
+  && for COUNT in `seq 1 9`; do mkdir -p /usr/share/man/man$COUNT; done \
+  && apt-get install --no-install-suggests -y \
+    default-jre-headless
 
 RUN pip install setuptools \
   && pip install wheel \
