@@ -10,4 +10,4 @@ else
   FORMAT="\"table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}\t{{.Networks}}\""
 fi
 
-watch -n 2 docker ps --format $FORMAT
+watch -n 4 docker ps --format $FORMAT

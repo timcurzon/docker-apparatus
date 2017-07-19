@@ -1,3 +1,3 @@
 #!/bin/bash
 
-watch -n 2 'docker ps --filter status=exited --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Command}}\t{{.Names}}"'
+watch -n 8 'docker ps --filter status=exited --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Command}}\t{{.Names}}"'
