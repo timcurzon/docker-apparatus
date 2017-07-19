@@ -1,0 +1,21 @@
+# Nginx docs instance
+
+version: '3'
+
+services:
+  web:
+    image: lroguet/rpi-nginx:latest
+    environment:
+      - VIRTUAL_HOST=docs.dockerpi.homedev
+    volumes:
+      - $PWD/nginx.conf:/etc/nginx/sites-enabled/default
+      - /home/pi/content/docs/src:/var/www/html
+    networks:
+      - proxy
+      - default
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external:
+      name: proxy
