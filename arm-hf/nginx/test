@@ -1,0 +1,16 @@
+#!/bin/bash
+
+CONTAINER="nginxtest"
+DEFAULTHOSTNAME="nginxtest.dockerpi.homedev"
+
+printf "\nEnter a hostname (blank for default): " 
+read HOSTNAME
+
+if [ "$HOSTNAME" = "" ]; then
+  HOSTNAME=$DEFAULTHOSTNAME
+fi
+
+echo "Testing nginx image (container is called $CONTAINER)"
+printf "Go to $HOSTNAME to see the test page...\n\n"
+
+docker run -d -e VIRTUAL_HOST=$HOSTNAME --name $CONTAINER --network=proxy nginx
