@@ -1,3 +1,14 @@
 #!/bin/bash
 
-watch -n 8 'docker ps --filter status=exited --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Command}}\t{{.Names}}"'
+#watch -n 8 'docker ps --filter status=exited --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Command}}\t{{.Names}}"'
+
+if [ "$1" = "-vv" ]; then
+  FORMAT="\"table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.Ports}}\t{{.Names}}\t{{.Networks}}\""
+elif [ "$1" = "-v" ]; then
+  FORMAT="\"table {{.ID}}\t{{.Image}}\t{{.Ports}}\t{{.Names}}\t{{.Networks}}\""
+else
+  FORMAT="\"table {{.ID}}\t{{.Image}}\t{{.Names}}\""
+fi
+
+watch -n 8 docker ps --filter status=exited --format $FORMAT
+

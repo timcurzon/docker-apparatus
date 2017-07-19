@@ -2,4 +2,5 @@
 arm-hf/routing/.env
 arm-hf/routing/configs/dnsmasq.*
 arm-hf/routing/configs/pihole
+arm-hf/portainer/data/*.db
 x86-64/opendsa/export
