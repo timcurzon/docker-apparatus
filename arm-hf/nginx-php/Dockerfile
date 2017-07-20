@@ -19,4 +19,21 @@ RUN apt-get install --no-install-recommends --no-install-suggests -y \
   # && apt-get clean \
   # && rm -r /var/lib/apt/lists/*
 
-CMD ["bash"]
+RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
+  && curl -o /tmp/composer-setup.sig https://composer.github.io/installer.sig \
+  && php -r "if (hash('SHA384', file_get_contents('/tmp/composer-setup.php')) !== trim(file_get_contents('/tmp/composer-setup.sig'))) { unlink('/tmp/composer-setup.php'); echo 'Invalid installer' . PHP_EOL; exit(1); }"
+
+RUN php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin \
+    --filename=composer --version=1.2.0 \
+    && rm -rf /tmp/composer-setup.php
+
+# TODO: copy in or derive Nginx test config
+
+COPY $PWD/www/* /var/www/html/ 
+
+COPY $PWD/entrypoint.sh /usr/local/bin/
+
+ENTRYPOINT ["entrypoint.sh"]
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+# CMD ["bash"]

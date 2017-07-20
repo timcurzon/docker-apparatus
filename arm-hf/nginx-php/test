@@ -1,25 +1,26 @@
 #!/bin/bash
 
 ACTION=$1
+IMAGE="nginx-php"
 CONTAINER="nginxphptest"
-DEFAULTHOSTNAME="nginxphptest.dockerpi.homedev"
-HOSTNAME=""
+DEFAULTHOST="nginxphptest.dockerpi.homedev"
+HOST=""
 
 if [ "$ACTION" = "" ]; then
 
   printf "\nTesting nginx image (using container name $CONTAINER)\n"
   printf "\nEnter a hostname (blank for default): "
-  read HOSTNAME
+  read HOST
 
-  if [ "$HOSTNAME" = "" ]; then
-    HOSTNAME=$DEFAULTHOSTNAME
+  if [ "$HOST" = "" ]; then
+    HOST=$DEFAULTHOST
   fi
 
   printf "\nThe test Nginx+PHP page should be available at\n"
-  printf " - 'http://$HOSTNAME' if using the jwilder Nginx proxy\n"
+  printf " - 'http://$HOST' if using the jwilder Nginx proxy\n"
   printf " - 'http://localhost' otherwise\n\n"
 
-  docker run -d -e VIRTUAL_HOST=$HOSTNAME --name $CONTAINER --network=proxy nginx
+  docker run -d -e VIRTUAL_HOST=$HOST --name $CONTAINER --network=proxy $IMAGE
 
 elif [ "$ACTION" = "--stop" ] || [ "$ACTION" = "-s" ]; then
 
