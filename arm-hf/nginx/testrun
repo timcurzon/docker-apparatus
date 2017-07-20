@@ -1,12 +1,43 @@
 #!/bin/bash
 
-ACTION=$1
+# Constants
 IMAGE="nginx"
+DEFAULTTAG="alpine"
 CONTAINER="nginxtest"
 DEFAULTHOST="nginxtest.dockerpi.homedev"
+
+# Reset optargs (assume previously used)
+OPTIND=1
+
+# Variants
+ACTION=""
+TAG=""
 HOST=""
 
+# Parse arguments
+while getopts "h?s?t:?" opt; do
+  case "$opt" in
+    h)
+      printf "\ntestrun : Begin a test run of the image\n\n"
+      printf "Usage: testrun [-t tagname] [-s]\n\n"
+      printf "  -t tagname : Tag name to use for the test image\n"
+      printf "  -s         : Stop a previously started test run\n\n"
+      exit 0;
+      ;;
+    t) TAG=$OPTARG 
+      ;;
+    s) ACTION="stop"
+      ;;
+  esac
+done
+
+if [ "$TAG" = "" ]; then
+  TAG=$DEFAULTTAG
+fi
+
 if [ "$ACTION" = "" ]; then
+
+  # Start test run 
 
   printf "\nTesting nginx image (using container name $CONTAINER)\n"
   printf "\nEnter a hostname (blank for default): "
@@ -20,9 +51,14 @@ if [ "$ACTION" = "" ]; then
   printf " - 'http://$HOST' if using the jwilder Nginx proxy\n"
   printf " - 'http://localhost' otherwise\n\n"
 
-  docker run -d --rm -e VIRTUAL_HOST=$HOST --name $CONTAINER --network=proxy $IMAGE
+  docker run -d --rm -e VIRTUAL_HOST=$HOST --name $CONTAINER --network=proxy \
+    -v $PWD/data:/var/www/site \
+    -v $PWD/config:/etc/nginx/conf.d \
+    $IMAGE:$TAG
 
-elif [ "$ACTION" = "--stop" ] || [ "$ACTION" = "-s" ]; then
+elif [ "$ACTION" = "stop" ]; then
+
+  # Stop test run
 
   echo "Stopping test container '$CONTAINER'"
   docker stop $CONTAINER

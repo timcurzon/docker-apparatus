@@ -1,6 +1,20 @@
 #!/bin/bash
 
 IMAGENAME="nginx"
-TAGNAME="latest"
+DEFAULTVARIANT="alpine"
+VARIANT=""
 
-docker build -t $IMAGENAME:$TAGNAME .
+printf "\nEnter a variant - rasbian or alpine (blank for default [alpine]): "
+read VARIANT
+
+if [ "$VARIANT" = "" ]; then
+  VARIANT=$DEFAULTVARIANT
+fi
+
+if [ "$VARIANT" = "rasbian" ] || [ "$VARIANT" = "alpine" ]; then
+  printf "Building $VARIANT...\n\n"
+  docker build -t $IMAGENAME:$VARIANT -f $VARIANT/Dockerfile $VARIANT
+  printf "\nDone!\n\n"
+else
+  printf "Invalid variant!\n\n"
+fi
