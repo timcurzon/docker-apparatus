@@ -1,16 +1,34 @@
 #!/bin/bash
 
+ACTION=$1
 CONTAINER="nginxtest"
 DEFAULTHOSTNAME="nginxtest.dockerpi.homedev"
+HOSTNAME=""
 
-printf "\nEnter a hostname (blank for default): " 
-read HOSTNAME
+if [ "$ACTION" = "" ]; then
 
-if [ "$HOSTNAME" = "" ]; then
-  HOSTNAME=$DEFAULTHOSTNAME
+  printf "\nTesting nginx image (using container name $CONTAINER)\n"
+  printf "\nEnter a hostname (blank for default): "
+  read HOSTNAME
+
+  if [ "$HOSTNAME" = "" ]; then
+    HOSTNAME=$DEFAULTHOSTNAME
+  fi
+
+  printf "\nThe default Nginx page should be available at\n"
+  printf " - 'http://$HOSTNAME' if using the jwilder Nginx proxy\n"
+  printf " - 'http://localhost' otherwise\n\n"
+
+  docker run -d -e VIRTUAL_HOST=$HOSTNAME --name $CONTAINER --network=proxy nginx
+
+elif [ "$ACTION" = "--stop" ] || [ "$ACTION" = "-s" ]; then
+
+  echo "Stopping test container '$CONTAINER'"
+  docker stop $CONTAINER
+
+  echo "Removing test container '$CONTAINER'"
+  docker rm $CONTAINER
+
+  echo "All done!"
+
 fi
-
-echo "Testing nginx image (container is called $CONTAINER)"
-printf "Go to $HOSTNAME to see the test page...\n\n"
-
-docker run -d -e VIRTUAL_HOST=$HOSTNAME --name $CONTAINER --network=proxy nginx

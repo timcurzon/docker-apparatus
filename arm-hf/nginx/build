@@ -1,0 +1,6 @@
+#!/bin/bash
+
+IMAGENAME="nginx"
+TAGNAME="latest"
+
+docker build -t $IMAGENAME:$TAGNAME .
