@@ -4,7 +4,7 @@ MAINTAINER Tim Curzon "timcurzon@users.noreply.github.com"
 
 RUN apt-get update \
   && apt-get install --no-install-recommends --no-install-suggests -y \
-    ca-certificates nginx-extras \
+    ca-certificates gnupg nginx-extras \
   && apt-get clean \
   && rm -r /var/lib/apt/lists/*
 
