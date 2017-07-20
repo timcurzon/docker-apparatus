@@ -20,15 +20,12 @@ if [ "$ACTION" = "" ]; then
   printf " - 'http://$HOST' if using the jwilder Nginx proxy\n"
   printf " - 'http://localhost' otherwise\n\n"
 
-  docker run -d -e VIRTUAL_HOST=$HOST --name $CONTAINER --network=proxy $IMAGE
+  docker run -d --rm -e VIRTUAL_HOST=$HOST --name $CONTAINER --network=proxy $IMAGE
 
 elif [ "$ACTION" = "--stop" ] || [ "$ACTION" = "-s" ]; then
 
   echo "Stopping test container '$CONTAINER'"
   docker stop $CONTAINER
-
-  echo "Removing test container '$CONTAINER'"
-  docker rm $CONTAINER
 
   echo "All done!"
 

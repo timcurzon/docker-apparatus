@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ACTION=$1
-IMAGE="nginx-php"
+IMAGE="nginx-php70"
 CONTAINER="nginxphptest"
-DEFAULTHOST="nginxphptest.dockerpi.homedev"
+DEFAULTHOST="$CONTAINER.dockerpi.homedev"
 HOST=""
 
 if [ "$ACTION" = "" ]; then
@@ -20,15 +20,15 @@ if [ "$ACTION" = "" ]; then
   printf " - 'http://$HOST' if using the jwilder Nginx proxy\n"
   printf " - 'http://localhost' otherwise\n\n"
 
-  docker run -d -e VIRTUAL_HOST=$HOST --name $CONTAINER --network=proxy $IMAGE
+  docker run -d --rm -e VIRTUAL_HOST=$HOST --name $CONTAINER --network=proxy \
+    -v $PWD/config/default:/etc/nginx/sites-available/default \
+    -v $PWD/data:/var/www/html \
+    $IMAGE
 
 elif [ "$ACTION" = "--stop" ] || [ "$ACTION" = "-s" ]; then
 
   echo "Stopping test container '$CONTAINER'"
   docker stop $CONTAINER
-
-  echo "Removing test container '$CONTAINER'"
-  docker rm $CONTAINER
 
   echo "All done!"
 
