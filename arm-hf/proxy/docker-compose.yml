@@ -1,8 +1,16 @@
-# Nginx reverse proxy based on the jwilder implementation
+# ===== Nginx reverse proxy =====
 #
-# Resources
-# Article: https://fourteenislands.io/2016/04/nginx-reverse-proxy-docker-and-a-raspberry-pi/
-# jwilder repo: https://github.com/jwilder/nginx-proxy
+# Nginx reverse proxy (lroguet implementation, based on the jwilder implementation)
+#
+# ----- Notes -----
+#
+# Articles:
+#  - https://fourteenislands.io/2016/04/nginx-reverse-proxy-docker-and-a-raspberry-pi/
+#  - http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/
+#
+# Repos:
+#  - https://github.com/lroguet/rpi-nginx-proxy
+#  - https://github.com/jwilder/nginx-proxy
 
 version: '3'
 

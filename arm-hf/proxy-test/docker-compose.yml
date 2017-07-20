@@ -1,8 +1,14 @@
-# Nginx test instance
+# ===== Nginx (test) web server =====
 #
-# Resources
-# Article: https://fourteenislands.io/2016/04/nginx-reverse-proxy-docker-and-a-raspberry-pi/
-# jwilder repo: https://github.com/jwilder/nginx-proxy
+# Nginx web server test instance based on the lroguet/rpi-nginx image
+#
+# ----- Notes -----
+#
+# Articles:
+#  - https://fourteenislands.io/2016/04/nginx-reverse-proxy-docker-and-a-raspberry-pi/
+#
+# Repos:
+#  - https://github.com/lroguet/rpi-nginx
 
 version: '3'
 

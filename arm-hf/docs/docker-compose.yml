@@ -1,4 +1,11 @@
-# Nginx docs instance
+# ===== Documentation web server =====
+#
+# Using Nginx web server based on the lroguet/rpi-nginx image
+#
+# ----- Notes -----
+#
+# Repos:
+#  - https://github.com/lroguet/rpi-nginx
 
 version: '3'
 

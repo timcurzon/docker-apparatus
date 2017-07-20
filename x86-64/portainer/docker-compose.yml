@@ -1,7 +1,15 @@
-# Container management UI
+# ===== Docker / Container Management =====
 #
-# Resources
-# Website: https://portainer.io/install.html
+# Portainer (arm tag)
+#
+# ----- Notes -----
+#
+# Links:
+#  - https://portainer.io/install.html
+#
+# Repos:
+#  - https://github.com/portainer/portainer
+#  - https://hub.docker.com/r/portainer/portainer
 
 version: '3'
 

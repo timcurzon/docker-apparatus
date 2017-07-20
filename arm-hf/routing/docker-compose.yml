@@ -5,14 +5,12 @@
 #
 # ----- Notes -----
 #
-# Article: https://fourteenislands.io/2016/04/nginx-reverse-proxy-docker-and-a-raspberry-pi/
+# Articles:
+#  - https://fourteenislands.io/2016/04/nginx-reverse-proxy-docker-and-a-raspberry-pi/
 #
-# Proxy (jwilder derived):
-#  - https://hub.docker.com/r/lroguet/rpi-nginx-proxy/
+# Repos:
+#  - https://github.com/lroguet/rpi-nginx-proxy
 #  - https://github.com/jwilder/nginx-proxy
-#
-# Pi-hole: 
-#  - https://hub.docker.com/r/diginc/pi-hole/
 #  - https://github.com/diginc/docker-pi-hole
 
 version: '3'
