@@ -13,9 +13,10 @@ RUN apk add --update \
   curl openssl gettext \
   && rm -rf /var/cache/apk/*
 
-RUN ln -sf /dev/stderr /var/log/php7/error.log
-
-RUN mkdir -p /var/www/html
+RUN ln -sf /dev/stderr /var/log/php7/error.log \
+  && mkdir -p /var/www/html \
+  && sed 's|listen = 127.0.0.1:9000|listen = 0.0.0.0:9000|' -i /etc/php7/php-fpm.d/www.conf \
+  && sed 's|;catch_workers_output|catch_workers_output|' -i /etc/php7/php-fpm.d/www.conf 
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
