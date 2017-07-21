@@ -13,6 +13,7 @@ OPTIND=1
 ACTION=""
 TAG=""
 HOST=""
+DESTCONFIG=""
 
 # Parse arguments
 while getopts "h?s?t:?" opt; do
@@ -35,11 +36,17 @@ if [ "$TAG" = "" ]; then
   TAG=$DEFAULTTAG
 fi
 
+if [ "$TAG" = "alpine" ]; then
+  DESTCONFIG="/etc/nginx/conf.d/default.conf"
+else
+  DESTCONFIG="/etc/nginx/sites-available/default"
+fi
+
 if [ "$ACTION" = "" ]; then
 
   # Start test run 
 
-  printf "\nTesting nginx image (using container name $CONTAINER)\n"
+  printf "\nTesting nginx image (using container $CONTAINER and image $IMAGE:$TAG)\n"
   printf "\nEnter a hostname (blank for default): "
   read HOST
 
@@ -52,8 +59,8 @@ if [ "$ACTION" = "" ]; then
   printf " - 'http://localhost' otherwise\n\n"
 
   docker run -d --rm -e VIRTUAL_HOST=$HOST --name $CONTAINER --network=proxy \
-    -v $PWD/test/index.html:/var/www/site/index.html \
-    -v $PWD/test/default.conf:/etc/nginx/conf.d/default.conf \
+    -v $PWD/test/index.html:/var/www/html/index.html \
+    -v $PWD/test/default.conf:$DESTCONFIG \
     $IMAGE:$TAG
 
 elif [ "$ACTION" = "stop" ]; then
