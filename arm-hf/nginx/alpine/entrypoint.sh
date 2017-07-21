@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#echo "DEBUG: $@"
-
 CMD=$(which "$1")
 
 if [ $? == '0' ]; then
