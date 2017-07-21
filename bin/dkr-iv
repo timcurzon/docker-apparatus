@@ -1,3 +1,19 @@
 #!/bin/bash
 
-watch -n 8 'docker image ls; printf "\n\n"; docker volume ls'
+#watch -n 8 'docker image ls; printf "\n\n"; docker volume ls'
+
+IMGFORMAT=""
+VOLFORMAT=""
+
+if [ "$1" = "-vv" ]; then
+  IMGFORMAT="\"table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedSince}}\t{{.Size}}\""
+  VOLFORMAT="\"table {{.Driver}}\t{{.Name}}\""
+elif [ "$1" = "-v" ]; then
+  IMGFORMAT="\"table {{.Repository}}\t{{.Tag}}\t{{.ID}}\""
+  VOLFORMAT="\"table {{.Driver}}\t{{.Name}}\""
+else
+  IMGFORMAT="\"table {{.Repository}} | {{.Tag}} | {{.ID}}\""
+  VOLFORMAT="\"table {{.Name}}\""
+fi
+
+watch -n 8 "docker image ls --format $IMGFORMAT; printf '\n\n'; docker volume ls --format $VOLFORMAT"
