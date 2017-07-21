@@ -1,0 +1,20 @@
+#!/bin/bash
+
+IMAGENAME="php-fpm"
+DEFAULTVARIANT="alpine"
+VARIANT=""
+
+printf "\nEnter a variant - only alpine available currently (blank for default [alpine]): "
+read VARIANT
+
+if [ "$VARIANT" = "" ]; then
+  VARIANT=$DEFAULTVARIANT
+fi
+
+if [ "$VARIANT" = "alpine" ]; then
+  printf "Building $VARIANT...\n\n"
+  docker build -t $IMAGENAME:$VARIANT -f $VARIANT/Dockerfile $VARIANT
+  printf "\nDone!\n\n"
+else
+  printf "Invalid variant!\n\n"
+fi
