@@ -1,1 +1,1 @@
-docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock --name dry dry:latest
+docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock --name dry dry:arm

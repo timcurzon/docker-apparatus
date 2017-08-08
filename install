@@ -2,34 +2,49 @@
 
 PROJECTDIR=`pwd`
 DEFAULTDIR="/usr/local/bin"
-DEFAULTARCH="arm"
+DEFAULTARCH="arm-hf"
+INSTALLDRY=true
 
-echo -n "Enter the absolute install path for the project scripts (default is $DEFAULTDIR): "
+printf "\n"
+
+echo -n "Specify the absolute install path for project scripts (default is $DEFAULTDIR): "
 read INSTALLDIR
 
-echo -n "Enter the CPU architecture being used (default is $DEFAULTARCH): "
+echo -n "Specify CPU architecture ([arm-hf|x86-64] default is $DEFAULTARCH): "
 read ARCH
+
+# Configure
+printf "\nConfiguration...\n\n"
 
 if [ "$INSTALLDIR" = "" ]; then
   INSTALLDIR=$DEFAULTDIR
-  echo "Using default install dir:" $INSTALLDIR
+  echo "- Will use default install dir:" $INSTALLDIR
 else
-  echo "Installing scripts into:" $INSTALLDIR
+  echo "- Will install scripts into:" $INSTALLDIR
 fi
 
 if [ "$ARCH" = "" ]; then
   ARCH=$DEFAULTARCH
 fi
-echo "Using CPU architecture:" $ARCH
+echo "- Using CPU architecture:" $ARCH
 
-# Link up Docker helper scripts
+echo "- Dry will not be installed, CPU architecture not supported"
+
+# Install
+printf "\nInstalling...\n\n"
+
+# ... Docker helper scripts
 for f in $( ls ./bin ); do
-  echo "Installing $PROJECTDIR/bin/$f into $INSTALLDIR/$f"
+  echo "> Installing $PROJECTDIR/bin/$f into $INSTALLDIR/$f"
   ln -sf $PROJECTDIR/bin/$f $INSTALLDIR/$f
 done
 
-# Link up moncho/dry
-if [ "$ARCH" = "arm" ]; then
-  echo "Installing $PROJECTDIR/arm-hf/dry into $INSTALLDIR/dry"
-  ln -sf $PROJECTDIR/arm-hf/dry/dry $INSTALLDIR/dry
+# ... moncho/dry
+if [ "$INSTALLDRY" = true ]; then
+  if [ "$ARCH" = "arm-hf" ] || [ "$ARCH" = "x86-64" ]; then
+    echo "> Installing $PROJECTDIR/$ARCH/dry into $INSTALLDIR/dry"
+    ln -sf $PROJECTDIR/$ARCH/dry/dry $INSTALLDIR/dry
+  fi
 fi
+
+printf "\nDone!\n\n"
