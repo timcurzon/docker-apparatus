@@ -2,9 +2,13 @@
 
 PROJECTDIR=`pwd`
 DEFAULTDIR="/usr/local/bin"
+DEFAULTARCH="arm"
 
-echo -n "Enter the absolute install path for the project scripts: "
+echo -n "Enter the absolute install path for the project scripts (default is $DEFAULTDIR): "
 read INSTALLDIR
+
+echo -n "Enter the CPU architecture being used (default is $DEFAULTARCH): "
+read ARCH
 
 if [ "$INSTALLDIR" = "" ]; then
   INSTALLDIR=$DEFAULTDIR
@@ -13,7 +17,19 @@ else
   echo "Installing scripts into:" $INSTALLDIR
 fi
 
+if [ "$ARCH" = "" ]; then
+  ARCH=$DEFAULTARCH
+fi
+echo "Using CPU architecture:" $ARCH
+
+# Link up Docker helper scripts
 for f in $( ls ./bin ); do
   echo "Installing $PROJECTDIR/bin/$f into $INSTALLDIR/$f"
   ln -sf $PROJECTDIR/bin/$f $INSTALLDIR/$f
 done
+
+# Link up moncho/dry
+if [ "$ARCH" = "arm" ]; then
+  echo "Installing $PROJECTDIR/arm-hf/dry into $INSTALLDIR/dry"
+  ln -sf $PROJECTDIR/arm-hf/dry/dry $INSTALLDIR/dry
+fi
