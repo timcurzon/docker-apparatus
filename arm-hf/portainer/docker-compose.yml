@@ -16,7 +16,7 @@ version: '3'
 services:
   portainer:
     container_name: portainer
-    image: portainer/portainer:linux-arm-1.13.6
+    image: portainer/portainer:linux-arm-1.14.3
     networks:
       - default
     ports:
