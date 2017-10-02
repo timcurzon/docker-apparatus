@@ -7,6 +7,4 @@ RUN set -x && \
 
 RUN rm -rf /var/cache/apk/*
 
-EXPOSE 4505 4506
-
-CMD sleep 1;/bin/bash
+CMD ["salt-minion"]
