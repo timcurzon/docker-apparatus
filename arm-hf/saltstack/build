@@ -1,1 +1,2 @@
-docker build -t saltmaster:arm .
+docker build -f Dockerfile-master -t saltmaster:arm .
+docker build -f Dockerfile-minion -t saltminion:arm .
