@@ -5,7 +5,7 @@ vim:
 
 /etc/vim/vimrc:
   file.managed:
-    - source: salt://edit/vimrc
+    - source: salt://common/vimrc
     - mode: 644
     - user: root
     - group: root

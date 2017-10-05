@@ -7,6 +7,6 @@ RUN set -x && \
     
 RUN rm -rf /var/cache/apk/*
 
-COPY minion /etc/salt/minion
+COPY config/minion /etc/salt/minion
 
 CMD ["salt-minion"]

@@ -7,11 +7,12 @@ RUN set -x && \
 
 RUN rm -rf /var/cache/apk/*
 
-RUN mkdir -p /srv/salt 
+RUN mkdir -p /srv/salt && \ 
+    mkdir -p /srv/pillar
 
-COPY master /etc/salt/master
+COPY config/master /etc/salt/master
 
-ADD states/ /srv/salt/
+ADD state/ /srv/
 
 EXPOSE 4505 4506
 
