@@ -1,0 +1,7 @@
+master: salt
+grains:
+  roles:
+    - container
+    - onlytesting
+  deployment: pi
+rejected_retry: True
