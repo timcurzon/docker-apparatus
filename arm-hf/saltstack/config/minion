@@ -1,4 +1,5 @@
 master: salt
+id: docker-minion
 grains:
   roles:
     - container

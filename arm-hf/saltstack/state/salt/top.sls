@@ -1,3 +1,4 @@
 base:
   '*':
-    - common.edit
+    - common.ready
+    - common.vim
