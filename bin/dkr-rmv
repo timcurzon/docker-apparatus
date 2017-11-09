@@ -1,13 +1,15 @@
 #!/bin/bash
 
-volumes="$(docker volume ls -q -f "dangling=true")"
+excludePattern="*_cache|*_vendor"
+volumes="$(docker volume ls -q -f "dangling=true" | grep -E -v "${excludePattern}")"
+
 if [ -z "$volumes" ]; then
 	echo -e "\nNo dangling volumes found\n"
 	exit
 fi
 
-echo -e "\nDangling volumes...\n"
-docker volume ls -f "dangling=true"
+echo -e "\nDangling volumes (excluding *_cache/*_vendor)...\n"
+docker volume ls -f "dangling=true" | grep -E -v "${excludePattern}"
 
 echo -en "\nDo you want to remove dangling volumes? (Y/n): "
 read -n 1 removevols
