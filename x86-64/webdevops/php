@@ -1,3 +1,11 @@
 #!/bin/bash
 
-docker run --rm -it webdevops/php:alpine-php7 php $@
+docker run \
+  --rm \
+  -i \
+  --network=host \
+  -v "${HOME}":"${HOME}":ro \
+  -u $(id -u) \
+  -w "${PWD}" \
+  webdevops/php:alpine-php7 \
+  php "$@"
