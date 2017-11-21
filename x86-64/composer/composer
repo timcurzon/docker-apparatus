@@ -1,0 +1,21 @@
+#!/bin/bash
+
+ENTRYPOINT=
+ARGS="$@"
+
+if [ $1 = "shell" ]; then
+  ENTRYPOINT="--entrypoint /bin/bash"
+  ARGS=""
+fi
+
+docker run \
+  --rm \
+  --interactive \
+  --tty \
+  --network=host \
+  --volume ${PWD}:/app \
+  --volume composer:/tmp \
+  -u $(id -u):$(id -g) \
+  ${ENTRYPOINT} \
+  composer ${ARGS}
+
