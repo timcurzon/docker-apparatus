@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  apache:
+    image: webdevops/apache:alpine
+    env_file: docker-compose.env
+    volumes:
+     - $PWD/web:/app
+    networks:
+     - proxy
+     - default
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external:
+      name: proxy
