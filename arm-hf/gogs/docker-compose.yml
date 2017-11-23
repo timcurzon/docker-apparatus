@@ -1,0 +1,34 @@
+# ===== GOGS Service =====
+#
+# The Go Git Service
+#
+# ----- Notes -----
+#
+# Links:
+#  - https://gogs.io 
+#
+# Repos:
+#  - https://hub.docker.com/r/gogs/gogs-rpi/
+#  - https://github.com/gogits/gogs/tree/master/docker
+
+version: '3'
+
+services:
+  gogs:
+    container_name: gogs
+    image: gogs/gogs-rpi:latest
+    environment:
+      VIRTUAL_HOST: "gogs.dockerpi.homedev"
+      VIRTUAL_PORT: 3000
+    volumes:
+      - /var/gogs:/data
+    ports:
+      - "2022:22"
+    networks:
+      - proxy
+      - default
+
+networks:
+  proxy:
+    external:
+      name: proxy
