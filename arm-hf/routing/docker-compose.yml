@@ -30,12 +30,15 @@ services:
       - $PWD/default:/etc/nginx/sites-available/default
     restart: unless-stopped
 
+# Note the /etc/resolv.conf mount is temporary until Pihole updated to v3.2.1 r1856 or greater
+
   pihole:
-    image: diginc/pi-hole:arm
+    image: diginc/pi-hole-multiarch:debian_armhf
     env_file: .env
     environment:
       - VIRTUAL_HOST=pihole.dockerpi.homedev
     volumes:
+      - $PWD/configs/resolv.conf:/etc/resolv.conf
       - $PWD/configs/pihole/:/etc/pihole/
       - $PWD/configs/dnsmasq.d/:/etc/dnsmasq.d/
     ports:
