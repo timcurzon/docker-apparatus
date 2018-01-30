@@ -1,22 +1,22 @@
 # ===== Documentation web server =====
 #
-# Using Nginx web server based on the lroguet/rpi-nginx image
+# Using Nginx web server based on the official Nginx Alpine image
 #
 # ----- Notes -----
 #
 # Repos:
-#  - https://github.com/lroguet/rpi-nginx
+#  - https://hub.docker.com/_/nginx/
 
 version: '3'
 
 services:
   web:
-    image: lroguet/rpi-nginx:latest
+    image: nginx:alpine
     environment:
       - VIRTUAL_HOST=docs.dockerpi.homedev
     volumes:
-      - $PWD/nginx.conf:/etc/nginx/sites-enabled/default
-      - /home/pi/content/docs/src:/var/www/html
+      - $PWD/nginx.conf:/etc/nginx/conf.d/default.conf
+      - /home/pi/content/docs/src:/usr/share/nginx/html
     networks:
       - proxy
       - default
