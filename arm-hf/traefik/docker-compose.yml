@@ -1,0 +1,31 @@
+# ===== Traefik front end Docker proxy =====
+#
+# ----- Notes -----
+#
+# Site:
+#  - https://traefik.io/ 
+#
+# Repos:
+#  - https://hub.docker.com/_/traefik/
+#  - https://github.com/containous/traefik-library-image
+
+version: '3.2'
+
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:alpine
+    networks:
+      - proxy
+    ports:
+     - "80:80"
+     - "7777:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $PWD/traefik.toml:/etc/traefik/traefik.toml
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external:
+      name: proxy

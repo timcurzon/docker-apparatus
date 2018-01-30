@@ -1,0 +1,38 @@
+# ===== Pihole DNS filter service =====
+#
+# Note the /etc/resolv.conf mount is temporary until Pihole updated to v3.2.1 r1856 or greater
+#
+# ----- Notes -----
+#
+# Repos:
+#  - https://github.com/diginc/docker-pi-hole
+
+version: '3.2'
+
+services:
+  pihole:
+    image: diginc/pi-hole-multiarch:debian_armhf
+    env_file: .env
+    environment:
+      # lroguet/rpi-nginx-proxy support
+      - VIRTUAL_HOST=pihole.dockerpi.homedev
+    labels:
+      # traefik support
+      - "traefik.backend=pihole" 
+      - "traefik.frontend.rule=Host:pihole.dockerpi.homedev"
+    volumes:
+      - $PWD/configs/resolv.conf:/etc/resolv.conf
+      - $PWD/configs/pihole/:/etc/pihole/
+      - $PWD/configs/dnsmasq.d/:/etc/dnsmasq.d/
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    networks:
+      - proxy
+    #  - default
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external:
+      name: proxy

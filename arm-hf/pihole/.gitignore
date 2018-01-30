@@ -1,0 +1,3 @@
+configs/dnsmasq.d/*
+configs/pihole/*
+

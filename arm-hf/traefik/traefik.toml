@@ -1,0 +1,11 @@
+# API/Dashboard configuration
+[api]
+dashboard = true
+
+# Ping configuration
+[ping]
+
+# Docker backend configuration
+[docker]
+domain = "dockerpi.homedev"
+watch = true

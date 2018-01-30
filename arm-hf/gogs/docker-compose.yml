@@ -1,4 +1,4 @@
-# ===== GOGS Service =====
+# ===== GOGS service =====
 #
 # The Go Git Service
 #
@@ -11,15 +11,21 @@
 #  - https://hub.docker.com/r/gogs/gogs-rpi/
 #  - https://github.com/gogits/gogs/tree/master/docker
 
-version: '3'
+version: '3.2'
 
 services:
   gogs:
     container_name: gogs
     image: gogs/gogs-rpi:latest
     environment:
+      # lroguet/rpi-nginx-proxy support
       VIRTUAL_HOST: "gogs.dockerpi.homedev"
       VIRTUAL_PORT: 3000
+    labels:
+      # traefik support
+      - "traefik.backend=gogs"
+      - "traefik.frontend.rule=Host:gogs.dockerpi.homedev"
+      - "traefik.gogs.port=3000"
     volumes:
       - /var/gogs:/data
     ports:
