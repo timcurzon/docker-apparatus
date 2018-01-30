@@ -20,6 +20,7 @@ services:
       # traefik support
       - "traefik.backend=pihole" 
       - "traefik.frontend.rule=Host:pihole.dockerpi.homedev"
+      - "traefik.port=80"
     volumes:
       - $PWD/configs/resolv.conf:/etc/resolv.conf
       - $PWD/configs/pihole/:/etc/pihole/
