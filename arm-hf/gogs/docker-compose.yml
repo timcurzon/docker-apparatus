@@ -32,7 +32,7 @@ services:
       - "2022:22"
     networks:
       - proxy
-      - default
+    #  - default
 
 networks:
   proxy:
