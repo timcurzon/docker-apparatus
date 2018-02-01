@@ -1,15 +1,6 @@
 #!/bin/bash
 
-# Nginx proxy setup -----
-
-if [ $( docker network ls --format="{{.Name}}" | grep -E "^proxy$" ) ]; then
-  echo "Proxy network already setup, skipping..."
-else
-  echo "Setting up proxy network..."
-  docker network create proxy
-fi
-
-# Pi-hole setup -----
+# Pi-hole first run setup -----
 
 mkdir -pv configs/dnsmasq.d
 mkdir -pv configs/pihole

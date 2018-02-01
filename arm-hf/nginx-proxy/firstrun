@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Nginx proxy first setup -----
+# Nginx proxy first run setup -----
 
 if [ $( docker network ls --format="{{.Name}}" | grep -E "^proxy$" ) ]; then
   echo "Proxy network already setup, skipping..."
