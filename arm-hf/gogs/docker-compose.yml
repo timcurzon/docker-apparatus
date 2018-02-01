@@ -25,7 +25,9 @@ services:
       # traefik support
       - "traefik.backend=gogs"
       - "traefik.frontend.rule=Host:gogs.dockerpi.homedev"
+      - "traefik.docker.network=proxy"
       - "traefik.port=3000"
+      - "traefik.enable=true"
     volumes:
       - /var/gogs:/data
     ports:
