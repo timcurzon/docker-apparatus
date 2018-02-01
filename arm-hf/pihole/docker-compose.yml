@@ -11,6 +11,7 @@ version: '3.2'
 
 services:
   pihole:
+    container_name: pihole
     image: diginc/pi-hole-multiarch:debian_armhf
     env_file: .env
     environment:

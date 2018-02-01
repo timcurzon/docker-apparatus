@@ -11,6 +11,7 @@ version: '3.2'
 
 services:
   web:
+    container_name: docs
     image: nginx:alpine
     environment:
       # lroguet/rpi-nginx-proxy support
