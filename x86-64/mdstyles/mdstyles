@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ ! -d output ]; then
+	mkdir output;
+fi
+
+docker run -it --rm -v $PWD:/input -v output:/output --name mdstyles mdstyles:x86-64 $@
+
+shopt -s nullglob dotglob
+files=(output/*)
+if [ ${#files[@]} -gt 0 ]; then
+	echo "Done, check output in ./output"
+else
+	rmdir output
+fi
