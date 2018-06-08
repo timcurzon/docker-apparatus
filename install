@@ -3,7 +3,10 @@
 PROJECTDIR=`pwd`
 DEFAULTDIR="/usr/local/bin"
 DEFAULTARCH="arm-hf"
+
+INSTALLDKRSCRIPTS=true
 INSTALLDRY=true
+INSTALLMDSTYLES=true
 
 printf "\n"
 
@@ -14,6 +17,7 @@ echo -n "Specify CPU architecture ([arm-hf|x86-64] default is $DEFAULTARCH): "
 read ARCH
 
 # Configure
+
 printf "\nConfiguration...\n\n"
 
 if [ "$INSTALLDIR" = "" ]; then
@@ -28,22 +32,38 @@ if [ "$ARCH" = "" ]; then
 fi
 echo "- Using CPU architecture:" $ARCH
 
-echo "- Dry will not be installed, CPU architecture not supported"
-
 # Install
+
 printf "\nInstalling...\n\n"
 
-# ... Docker helper scripts
-for f in $( ls ./bin ); do
-  echo "> Installing $PROJECTDIR/bin/$f into $INSTALLDIR/$f"
-  ln -sf $PROJECTDIR/bin/$f $INSTALLDIR/$f
-done
+# ... docker helper scripts
+
+if [ "$INSTALLDKRSCRIPTS" = true ]; then
+  for f in $( ls ./bin ); do
+    echo "> Installing $PROJECTDIR/bin/$f into $INSTALLDIR/$f"
+    ln -sf $PROJECTDIR/bin/$f $INSTALLDIR/$f
+  done
+fi
 
 # ... moncho/dry
+
 if [ "$INSTALLDRY" = true ]; then
   if [ "$ARCH" = "arm-hf" ] || [ "$ARCH" = "x86-64" ]; then
     echo "> Installing $PROJECTDIR/$ARCH/dry into $INSTALLDIR/dry"
+    docker image rm dry:$ARCH
+    pushd ./$ARCH/dry; ./build; popd
     ln -sf $PROJECTDIR/$ARCH/dry/dry $INSTALLDIR/dry
+  fi
+fi
+
+# ... mixu/markdown-styles
+
+if [ "$INSTALLMDSTYLES" = true ]; then
+  if [ "$ARCH" = "x86-64" ]; then
+    echo "> Installing $PROJECTDIR/$ARCH/generate-md into $INSTALLDIR/generate-md"
+    docker image rm mdstyles:$ARCH
+    pushd ./$ARCH/mdstyles; ./build; popd
+    ln -sf $PROJECTDIR/$ARCH/mdstyles/generate-md $INSTALLDIR/generate-md
   fi
 fi
 
