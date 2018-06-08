@@ -9,6 +9,8 @@ RUN update-ca-certificates
 
 RUN npm install -g markdown-styles
 
-# CMD sleep 1;bash
+COPY init.sh /mdstyles/init.sh
 
-ENTRYPOINT ["/usr/local/bin/generate-md", "--input /input", "--output /output"]
+WORKDIR /workdir
+
+ENTRYPOINT ["/mdstyles/init.sh"] 

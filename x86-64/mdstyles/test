@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir ./input
+printf "# Hello world\nYOLO" > input/index.md
+./generate-md --input ./input --output ./output
