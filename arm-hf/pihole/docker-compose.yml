@@ -5,14 +5,15 @@
 # ----- Notes -----
 #
 # Repos:
-#  - https://github.com/diginc/docker-pi-hole
+#  - https://hub.docker.com/r/pihole/pihole/
+#  - https://github.com/pi-hole/docker-pi-hole
 
 version: '3.2'
 
 services:
   pihole:
     container_name: pihole
-    image: diginc/pi-hole-multiarch:debian_armhf
+    image: pihole/pihole:v4.0_armhf
     env_file: .env
     environment:
       # lroguet/rpi-nginx-proxy support
@@ -25,7 +26,7 @@ services:
       - "traefik.port=80"
       - "traefik.enable=true"
     volumes:
-      - $PWD/configs/resolv.conf:/etc/resolv.conf
+    # - $PWD/configs/resolv.conf:/etc/resolv.conf
       - $PWD/configs/pihole/:/etc/pihole/
       - $PWD/configs/dnsmasq.d/:/etc/dnsmasq.d/
     ports:
