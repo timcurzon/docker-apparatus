@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# These should be set via another source rather than an env script in public repo =)
+export LOCAL_MYSQL_ROOT_PASSWORD=testrootpass
+export LOCAL_MYSQL_USER_PASSWORD=testuserpass

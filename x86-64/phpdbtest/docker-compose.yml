@@ -1,0 +1,32 @@
+version: '3.2'
+
+services:
+  php:
+    image: phpdbtest/phpapache:latest
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=php_test_db_user
+      - MYSQL_PASSWORD=$LOCAL_MYSQL_USER_PASSWORD
+    volumes:
+      - $PWD/content/web:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - phpdbtest
+
+  mariadb:
+    image: mariadb:10.3
+    environment:
+      - MYSQL_ROOT_PASSWORD=$LOCAL_MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=php_test_db
+      - MYSQL_USER=php_test_db_user
+      - MYSQL_PASSWORD=$LOCAL_MYSQL_USER_PASSWORD
+    volumes:
+      - $PWD/content/sql:/docker-entrypoint-initdb.d
+    networks:
+      phpdbtest:
+        aliases:
+          - mysql
+
+networks:
+  phpdbtest:
