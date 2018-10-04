@@ -1,11 +1,23 @@
 #!/bin/bash
 
+ENTRYPOINT=
+CMD="php"
+ARGS="$@"
+
+if [ $1 = "shell" ]; then
+  ENTRYPOINT="--entrypoint /bin/bash"
+  ARGS=""
+  CMD=""
+fi
+
 docker run \
   --rm \
-  -i \
+  --interactive \
+  --tty \
   --network=host \
   -v "${HOME}":"${HOME}":ro \
   -u $(id -u) \
   -w "${PWD}" \
-  webdevops/php:alpine-php7 \
-  php "$@"
+  ${ENTRYPOINT} \
+  webdevops/php:latest \
+  $CMD $ARGS
