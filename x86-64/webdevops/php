@@ -1,10 +1,12 @@
 #!/bin/bash
 
+TTY=
 ENTRYPOINT=
 CMD="php"
 ARGS="$@"
 
 if [ $1 = "shell" ]; then
+  TTY="--tty"
   ENTRYPOINT="--entrypoint /bin/bash"
   ARGS=""
   CMD=""
@@ -13,8 +15,8 @@ fi
 docker run \
   --rm \
   --interactive \
-  --tty \
   --network=host \
+  ${TTY} \
   -v "${HOME}":"${HOME}":ro \
   -u $(id -u) \
   -w "${PWD}" \
