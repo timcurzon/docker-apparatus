@@ -8,8 +8,8 @@ ARGS="$@"
 if [ $1 = "shell" ]; then
   TTY="--tty"
   ENTRYPOINT="--entrypoint /bin/bash"
-  ARGS=""
   CMD=""
+  ARGS=""
 fi
 
 docker run \
