@@ -1,8 +1,0 @@
-# minion config
-file.client: local
-file_roots:
-  base:
-    - /srv/salt
-pillar_roots:
-  base:
-    - /srv/pillar

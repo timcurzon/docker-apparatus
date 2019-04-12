@@ -1,3 +1,4 @@
 #!/bin/bash
 
-docker run -it --rm -u $UID -v $PWD:/workdir --name mdstyles mdstyles:x86-64 $@
+#docker run -it --rm -u $UID -v $PWD:/workdir --name mdstyles mdstyles:x86-64 $@
+docker run -it --rm -v $PWD:/workdir --name mdstyles mdstyles:x86-64 $@

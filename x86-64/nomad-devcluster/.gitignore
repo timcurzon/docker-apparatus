@@ -1,3 +1,0 @@
-saltstack/pillar/overrides.sls
-.vagrant
-ubuntu*log
