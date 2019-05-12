@@ -1,0 +1,16 @@
+#!/bin/bash
+
+REPO_NAME="docker-socket-proxy"
+CHECKOUT_DIR=$REPO_NAME
+IMAGE_TAG="tecnativa/$REPO_NAME:armhf"
+
+rm -rf $CHECKOUT_DIR
+
+git clone git@github.com:Tecnativa/$REPO_NAME.git
+
+docker build \
+  --build-arg BUILD_DATE="$(date --rfc-3339 ns)" \
+  --tag "$IMAGE_TAG" \
+  $CHECKOUT_DIR/
+
+rm -rf $CHECKOUT_DIR
