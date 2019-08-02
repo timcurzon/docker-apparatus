@@ -1,6 +1,7 @@
 #!/bin/bash
 
 dangling="$(docker images -q -f "dangling=true")"
+
 if [ -z "$dangling" ]; then
         echo -e "\nNo dangling images found\n"
         exit

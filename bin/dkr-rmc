@@ -1,6 +1,7 @@
 #!/bin/bash
 
 exited="$(docker ps -q -f "status=exited")"
+
 if [ -z "$exited" ]; then
 	echo -e "\nNo exited containers found\n"
 	exit

@@ -4,7 +4,7 @@ SERVICE=$1
 
 if [ "$SERVICE" == "" ]; then
   echo "Please provide a service name..."
-  exit
+  exit 1
 fi
 
 docker-compose stop $SERVICE

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#watch -n 8 'docker image ls; printf "\n\n"; docker volume ls'
-
 IMGFORMAT=""
 VOLFORMAT=""
 
