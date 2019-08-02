@@ -1,0 +1,13 @@
+#!/bin/bash
+
+IMAGEID="$1"
+
+if [ "$IMAGEID" = "" ]; then
+  echo "Please supply an image ID!"
+  exit 1
+fi
+
+for i in $(docker images -q)
+do
+    docker history $i | grep -q $IMAGEID && echo $i
+done | sort -u
