@@ -1,3 +1,24 @@
 #!/bin/bash
 
-docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+if [ "$1" = "" ]; then
+	echo "Please supply a container ID"
+	exit 1
+fi
+
+CONTAINER_NAME=$(docker inspect --format {{.Name}} "$@")
+NETWORK=($(docker inspect --format '{{range $networkId, $conf := .NetworkSettings.Networks}} {{ $networkId}} {{ .NetworkID }} {{ .Gateway }} {{ .IPAddress }} {{end}}' "$@"))
+
+printf "\nIPs + Networks for container ID $@ (${CONTAINER_NAME}):\n"
+
+for index in ${!NETWORK[*]}; do
+	if [ $(($index % 4)) = 0 ]; then
+		printf " > Network: %s\n" ${NETWORK[$index]}
+		printf "  - ID:  %s \n"  ${NETWORK[(($index + 1))]}
+		printf "  - G/W: %s\n" ${NETWORK[(($index + 2))]}
+		printf "  - IP:  %s \n" ${NETWORK[(($index + 3))]}
+	fi
+
+	# printf "%d: %s\n" $index ${NETWORK[$index]}
+done
+
+printf "\n"
