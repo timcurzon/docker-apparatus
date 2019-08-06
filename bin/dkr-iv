@@ -1,12 +1,57 @@
 #!/bin/bash
+# set -euo pipefail
+
+# Globals
+VERBOSITY="v"
+SPLIT_TERM=""
 
 IMGFORMAT=""
 VOLFORMAT=""
 
-if [ "$1" = "-vv" ]; then
+# Functions
+usage() {
+        echo "Usage: $0 [ -s SPLIT_TERM ] [ -v LEVEL ]" 1>&2
+}
+
+check_option_is_not_empty_string() {
+        if [ "${OPTARG}" = "" ]; then
+                echo "Error: -${OPTION} should be provided with a string"
+                exit_abnormal
+        fi
+}
+
+exit_abnormal() {
+        usage
+        exit 1
+}
+
+# Options
+while getopts ":s:v:" OPTION; do
+  case "$OPTION" in
+    s)
+      check_option_is_not_empty_string
+      SPLIT_TERM=${OPTARG}
+      ;;
+    v)
+      VERBOSITY=${VERBOSITY}${OPTARG}
+      ;;
+    :)
+      if [ "${OPTARG}" != "v" ]; then
+        echo "Error: -${OPTARG} requires an argument"
+        exit_abnormal
+      fi
+      ;;
+    *)
+      exit_abnormal
+      ;;
+  esac
+done
+
+# Main
+if [ "$VERBOSITY" = "vvv" ]; then
   IMGFORMAT="\"table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedSince}}\t{{.Size}}\""
   VOLFORMAT="\"table {{.Driver}}\t{{.Name}}\""
-elif [ "$1" = "-v" ]; then
+elif [ "$VERBOSITY" = "vv" ]; then
   IMGFORMAT="\"table {{.Repository}}\t{{.Tag}}\t{{.ID}}\""
   VOLFORMAT="\"table {{.Driver}}\t{{.Name}}\""
 else
@@ -14,4 +59,16 @@ else
   VOLFORMAT="\"table {{.Name}}\""
 fi
 
-watch -n 8 "docker image ls --format $IMGFORMAT; printf '\n\n'; docker volume ls --format $VOLFORMAT"
+if [ "$SPLIT_TERM" != "" ]; then
+  CMD="
+    docker image ls --format $IMGFORMAT | grep -E '^(REPO|${SPLIT_TERM})' | sort -s -h -k1; \
+    printf '\n'; \
+    docker image ls --format $IMGFORMAT | grep -v '${SPLIT_TERM}' | sort -s -h -k1; \
+    printf '\n'; \
+    docker volume ls --format $VOLFORMAT \
+  "
+else
+  CMD="docker image ls --format $IMGFORMAT; printf '\n'; docker volume ls --format $VOLFORMAT"
+fi
+
+watch -n 8 "${CMD}"
