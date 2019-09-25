@@ -13,7 +13,7 @@ version: '3.2'
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:v4.0_armhf
+    image: pihole/pihole:4.3.2_armhf
     env_file: .env
     environment:
       # lroguet/rpi-nginx-proxy support
