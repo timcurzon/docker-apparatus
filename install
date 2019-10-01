@@ -7,6 +7,7 @@ DEFAULTARCH="arm-hf"
 INSTALLDKRSCRIPTS=true
 INSTALLDRY=true
 INSTALLMDSTYLES=true
+INSTALLPHP=true
 
 printf "\n"
 
@@ -64,6 +65,17 @@ if [ "$INSTALLMDSTYLES" = true ]; then
     docker image rm mdstyles:$ARCH
     pushd ./$ARCH/mdstyles; ./build; popd
     ln -sf $PROJECTDIR/$ARCH/mdstyles/generate-md $INSTALLDIR/generate-md
+  fi
+fi
+
+# ... PHP / Composer
+
+if [ "$INSTALLPHP" = true ]; then
+  if [ "$ARCH" = "x86-64" ]; then
+    echo "> Installing $PROJECTDIR/$ARCH/webdevops/php into $INSTALLDIR/php"
+    ln -sf $PROJECTDIR/$ARCH/webdevops/php $INSTALLDIR/php
+    echo "> Installing $PROJECTDIR/$ARCH/composer/composer into $INSTALLDIR/composer"
+    ln -sf $PROJECTDIR/$ARCH/composer/composer $INSTALLDIR/composer
   fi
 fi
 
