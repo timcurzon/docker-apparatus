@@ -16,7 +16,7 @@ version: '3.7'
 services:
   dockerproxy:
     container_name: dockerproxy
-    image: tecnativa/docker-socket-proxy:armhf
+    image: tecnativa/docker-socket-proxy:arm32v6
     privileged: true
     networks:
       - proxy
