@@ -1,0 +1,51 @@
+# ===== Traefik v2 reverse HTTP proxy + Docker proxy =====
+#
+# ----- Notes -----
+#
+# Site:
+#  - https://traefik.io/ 
+#
+# Repos:
+#  - https://hub.docker.com/_/traefik/
+#  - https://github.com/containous/traefik-library-image
+#  - https://hub.docker.com/r/tecnativa/docker-socket-proxy
+#  - https://github.com/Tecnativa/docker-socket-proxy
+
+version: '3.7'
+
+services:
+  dockerproxy:
+    container_name: dockerproxy
+    image: tecnativa/docker-socket-proxy:arm32v6
+    privileged: true
+    networks:
+      - proxy
+    ports:
+      - "127.0.0.1:2375:2375"
+    environment:
+      CONTAINERS: 1
+      NETWORKS: 1
+      SERVICES: 1
+      TASKS: 1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+
+  traefik:
+    container_name: traefik
+    image: traefik:v2.3
+    depends_on:
+      - dockerproxy
+    networks:
+      - proxy
+    ports:
+      - "80:80"
+      - "7777:8080"
+    volumes:
+      - $PWD/traefik.yml:/etc/traefik/traefik.yml
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external:
+      name: proxy

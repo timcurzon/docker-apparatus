@@ -1,0 +1,22 @@
+providers:
+  docker:
+    defaultRule: "Host(`{{ trimPrefix `/` .Name }}.dockerpi.homedev`)"
+    endpoint: "http://dockerproxy:2375"
+    exposedByDefault: false
+
+api:
+  dashboard: true
+  # insecure: true
+
+log:
+  level: ERROR
+
+entryPoints:
+  http:
+    address: ":80"
+
+http:
+  routers:
+    api:
+      rule: Host(`traefik.dockerpi.homedev`)
+      service: api@internal

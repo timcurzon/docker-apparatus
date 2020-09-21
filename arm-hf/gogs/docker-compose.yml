@@ -16,7 +16,7 @@ version: '3.2'
 services:
   gogs:
     container_name: gogs
-    image: gogs/gogs-rpi:latest
+    image: gogs/gogs-rpi:0.12
     environment:
       # lroguet/rpi-nginx-proxy support
       VIRTUAL_HOST: "gogs.dockerpi.homedev"
