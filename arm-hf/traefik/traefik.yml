@@ -6,17 +6,17 @@ providers:
 
 api:
   dashboard: true
-  # insecure: true
+  insecure: true
 
 log:
   level: ERROR
 
 entryPoints:
-  http:
+  web:
     address: ":80"
 
-http:
-  routers:
-    api:
-      rule: Host(`traefik.dockerpi.homedev`)
-      service: api@internal
+#http:
+#  routers:
+#    api:
+#      rule: Host(`traefik.dockerpi.homedev`)
+#      service: api@internal

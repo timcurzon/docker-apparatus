@@ -13,22 +13,16 @@ services:
   web:
     container_name: docs
     image: nginx:alpine
-    environment:
-      # lroguet/rpi-nginx-proxy support
-      - VIRTUAL_HOST=docs.dockerpi.homedev
     labels:
-      # traefik support
-      - "traefik.backend=docs" 
-      - "traefik.frontend.rule=Host:docs.dockerpi.homedev"
-      - "traefik.docker.network=proxy"
-      - "traefik.port=80"
+      # traefik v2 support
+      - "traefik.http.routers.docs.rule=Host(`docs.dockerpi.homedev`)"
+      - "traefik.http.services.docs.loadbalancer.server.port=80"
       - "traefik.enable=true"
     volumes:
       - $PWD/nginx.conf:/etc/nginx/conf.d/default.conf
       - /home/pi/content/docs/web:/usr/share/nginx/html
     networks:
       - proxy
-    #  - default
     restart: unless-stopped
 
 networks:

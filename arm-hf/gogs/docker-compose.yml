@@ -17,16 +17,10 @@ services:
   gogs:
     container_name: gogs
     image: gogs/gogs-rpi:0.12
-    environment:
-      # lroguet/rpi-nginx-proxy support
-      VIRTUAL_HOST: "gogs.dockerpi.homedev"
-      VIRTUAL_PORT: 3000
     labels:
-      # traefik support
-      - "traefik.backend=gogs"
-      - "traefik.frontend.rule=Host:gogs.dockerpi.homedev"
-      - "traefik.docker.network=proxy"
-      - "traefik.port=3000"
+      # traefik v2 support
+      - "traefik.http.routers.gogs.rule=Host(`gogs.dockerpi.homedev`)"
+      - "traefik.http.services.gogs.loadbalancer.server.port=3000"
       - "traefik.enable=true"
     volumes:
       - /var/gogs:/data
@@ -34,7 +28,6 @@ services:
       - "2022:22"
     networks:
       - proxy
-    #  - default
     restart: unless-stopped
 
 networks:

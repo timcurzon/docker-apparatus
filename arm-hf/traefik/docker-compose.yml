@@ -1,4 +1,4 @@
-# ===== Traefik reverse HTTP proxy + Docker proxy =====
+# ===== Traefik v2 reverse HTTP proxy + Docker proxy =====
 #
 # ----- Notes -----
 #
@@ -20,8 +20,6 @@ services:
     privileged: true
     networks:
       - proxy
-    ports:
-      - "127.0.0.1:2375:2375"
     environment:
       CONTAINERS: 1
       NETWORKS: 1
@@ -33,7 +31,7 @@ services:
 
   traefik:
     container_name: traefik
-    image: traefik:alpine
+    image: traefik:v2.3
     depends_on:
       - dockerproxy
     networks:
@@ -42,7 +40,7 @@ services:
       - "80:80"
       - "7777:8080"
     volumes:
-      - $PWD/traefik.toml:/etc/traefik/traefik.toml
+      - $PWD/traefik.yml:/etc/traefik/traefik.yml
     restart: unless-stopped
 
 networks:
