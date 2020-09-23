@@ -17,16 +17,19 @@ services:
     env_file: .env
     labels:
       # traefik v2 support
+      - "traefik.http.routers.pihole.entrypoints=web"
       - "traefik.http.routers.pihole.rule=Host(`pihole.dockerpi.homedev`)"
       - "traefik.http.services.pihole.loadbalancer.server.port=80"
+      - "traefik.tcp.routers.pihole.entrypoints=dns"
+      - "traefik.tcp.routers.pihole.rule=HostSNI(`*`)"
+      - "traefik.tcp.services.pihole.loadbalancer.server.port=53"
+      - "traefik.udp.routers.pihole.entrypoints=dnsudp"
+      - "traefik.udp.services.pihole.loadbalancer.server.port=53"
       - "traefik.enable=true"
     volumes:
     # - $PWD/configs/resolv.conf:/etc/resolv.conf
       - $PWD/configs/pihole/:/etc/pihole/
       - $PWD/configs/dnsmasq.d/:/etc/dnsmasq.d/
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
     networks:
       - proxy
     restart: unless-stopped

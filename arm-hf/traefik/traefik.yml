@@ -14,6 +14,14 @@ log:
 entryPoints:
   web:
     address: ":80"
+  websecure:
+    address: ":443"
+  dns:
+    address: ":53/tcp"
+  dnsudp:
+    address: ":53/udp"
+  ssh:
+    address: ":22/tcp"
 
 #http:
 #  routers:

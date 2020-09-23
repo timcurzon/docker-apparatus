@@ -20,12 +20,14 @@ services:
     labels:
       # traefik v2 support
       - "traefik.http.routers.gogs.rule=Host(`gogs.dockerpi.homedev`)"
+      - "traefik.http.routers.gogs.entrypoints=web"
       - "traefik.http.services.gogs.loadbalancer.server.port=3000"
+      - "traefik.tcp.routers.gogs.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.gogs.entrypoints=ssh"
+      - "traefik.tcp.services.gogs.loadbalancer.server.port=22"
       - "traefik.enable=true"
     volumes:
       - /var/gogs:/data
-    ports:
-      - "2022:22"
     networks:
       - proxy
     restart: unless-stopped
