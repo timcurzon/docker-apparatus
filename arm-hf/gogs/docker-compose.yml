@@ -27,7 +27,7 @@ services:
       - "traefik.tcp.services.gogs.loadbalancer.server.port=22"
       - "traefik.enable=true"
     volumes:
-      - /var/gogs:/data
+      - /var/content/gogs:/data
     networks:
       - proxy
     restart: unless-stopped

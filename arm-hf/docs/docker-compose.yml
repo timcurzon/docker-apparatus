@@ -21,7 +21,7 @@ services:
       - "traefik.enable=true"
     volumes:
       - $PWD/nginx.conf:/etc/nginx/conf.d/default.conf
-      - /home/pi/content/docs/web:/usr/share/nginx/html
+      - /var/content/docs/web:/usr/share/nginx/html
     networks:
       - proxy
     restart: unless-stopped
