@@ -13,7 +13,7 @@ version: '3.2'
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:v5.1.2
+    image: pihole/pihole:v5.6
     env_file: .env
     labels:
       # traefik v2 support
@@ -27,9 +27,9 @@ services:
       - "traefik.udp.services.pihole.loadbalancer.server.port=53"
       - "traefik.enable=true"
     volumes:
-    # - $PWD/configs/resolv.conf:/etc/resolv.conf
-      - $PWD/configs/pihole/:/etc/pihole/
-      - $PWD/configs/dnsmasq.d/:/etc/dnsmasq.d/
+    # - /var/content/pihole/resolv.conf:/etc/resolv.conf
+      - /var/content/pihole/pihole/:/etc/pihole/
+      - /var/content/pihole/dnsmasq.d/:/etc/dnsmasq.d/
     networks:
       - proxy
     restart: unless-stopped
