@@ -2,4 +2,4 @@
 
 # GOGS first run setup -----
 
-mkdir -pv /var/gogs
+mkdir -pv /var/content/gogs

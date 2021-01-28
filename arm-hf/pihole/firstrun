@@ -5,7 +5,7 @@
 mkdir -pv configs/dnsmasq.d
 mkdir -pv configs/pihole
 
-IP_LOOKUP="$(ip route get 8.8.8.8 | awk '{ print $NF; exit }')"
+IP_LOOKUP="$(ip route get 8.8.8.8 | awk '{ print $7; exit }')"
 IP="${IP:-$IP_LOOKUP}"
 #IPv6_LOOKUP="$(ip -6 route get 2001:4860:4860::8888 | awk '{ print $10; exit }')"
 #IPv6="${IPv6:-$IPv6_LOOKUP}"
