@@ -1,0 +1,44 @@
+# ===== JellyFin Service =====
+#
+# The JellyFin Media Service
+#
+# ----- Notes -----
+#
+# Links:
+#  - https://jellyfin.org/
+#
+# Repos:
+#  - https://hub.docker.com/r/jellyfin/jellyfin
+#  - https://github.com/jellyfin/jellyfin
+
+version: '3.8'
+
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: jellyfin/jellyfin
+    user: 1000:1000
+    labels:
+      # traefik v2 support
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.dockerpi.homedev`)"
+      - "traefik.http.routers.jellyfin.entrypoints=web"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
+      - "traefik.enable=true"
+    # devices:
+    #   - "/dev/vchiq:/dev/vchiq"
+    volumes:
+      - /var/content/jellyfin/config:/config
+      - /var/content/jellyfin/cache:/cache
+      - /media/pi/ExternalContent/content/media/audio:/media/audio
+    # Networking & DLNA
+    #  - Enable network_mode: host to get DLNA working (disable networks, host mode precludes bridge networking)
+    #  - Also re: DLNA, Traefik & Jellyfin, see: https://github.com/jellyfin/jellyfin/issues/1900#issuecomment-658073153
+    # network_mode: host
+    networks:
+      - proxy
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external:
+      name: proxy
