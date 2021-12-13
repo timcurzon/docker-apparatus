@@ -1,6 +1,5 @@
 *.swp
-arm-hf/routing/.env
-arm-hf/routing/configs/dnsmasq.*
-arm-hf/routing/configs/pihole
-arm-hf/portainer/data/*.db
+arm-hf/pihole/.env
+arm-hf/pihole/configs/dnsmasq.*
+arm-hf/pihole/configs/pihole
 x86-64/opendsa/export
