@@ -1,5 +1,3 @@
 *.swp
 arm-hf/pihole/.env
-arm-hf/pihole/configs/dnsmasq.*
-arm-hf/pihole/configs/pihole
 x86-64/opendsa/export
