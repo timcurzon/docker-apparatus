@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ENTRYPOINT=
+IMAGE="composer"
 ARGS="$@"
 
 if [ $1 = "shell" ]; then
@@ -17,5 +18,6 @@ docker run \
   --volume composer:/tmp \
   -u $(id -u):$(id -g) \
   ${ENTRYPOINT} \
-  composer ${ARGS}
+  ${IMAGE} \
+  ${ARGS}
 

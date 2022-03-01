@@ -2,8 +2,17 @@
 
 TTY=
 ENTRYPOINT=
+IMAGE=""
+IMAGE_74="webdevops/php:7.4-alpine"
+IMAGE_80="webdevops/php:8.0-alpine"
 CMD="php"
 ARGS="$@"
+
+if (echo $0 | grep -q "php8"); then
+  IMAGE=$IMAGE_80
+else
+  IMAGE=$IMAGE_74
+fi
 
 if [ $1 = "shell" ]; then
   TTY="--tty"
@@ -17,9 +26,9 @@ docker run \
   --interactive \
   --network=host \
   ${TTY} \
-  -v "${HOME}":"${HOME}":ro \
+  -v "${HOME}":"${HOME}":rw \
   -u $(id -u) \
   -w "${PWD}" \
   ${ENTRYPOINT} \
-  webdevops/php:latest \
+  ${IMAGE} \
   $CMD $ARGS

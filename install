@@ -74,6 +74,13 @@ if [ "$INSTALLPHP" = true ]; then
   if [ "$ARCH" = "x86-64" ]; then
     echo "> Installing $PROJECTDIR/$ARCH/webdevops/php into $INSTALLDIR/php"
     ln -sf $PROJECTDIR/$ARCH/webdevops/php $INSTALLDIR/php
+
+    echo "> Installing $PROJECTDIR/$ARCH/webdevops/php8 into $INSTALLDIR/php8"
+    ln -sf $PROJECTDIR/$ARCH/webdevops/php $INSTALLDIR/php8
+
+    echo "> Installing $PROJECTDIR/$ARCH/webdevops/php7 into $INSTALLDIR/php7"
+    ln -sf $PROJECTDIR/$ARCH/webdevops/php $INSTALLDIR/php7
+
     echo "> Installing $PROJECTDIR/$ARCH/composer/composer into $INSTALLDIR/composer"
     ln -sf $PROJECTDIR/$ARCH/composer/composer $INSTALLDIR/composer
   fi
