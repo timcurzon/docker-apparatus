@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.16
 
 RUN set -x && \
     apk update && \
@@ -6,9 +6,7 @@ RUN set -x && \
     apk add curl file && \
     rm -rf /var/cache/apk/*
 
-# Fix for arm CPU detection
 RUN curl https://moncho.github.io/dry/dryup.sh > dryup.sh && \ 
-    sed 's|print substr($0,0,4|print substr($0,0,3|' -i dryup.sh && \
     sh dryup.sh && \
     chmod 755 /usr/local/bin/dry
 

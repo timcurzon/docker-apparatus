@@ -16,7 +16,9 @@ version: '3.2'
 services:
   gogs:
     container_name: gogs
-    image: gogs/gogs-rpi:0.12
+    image: gogs/gogs:0.12-armv7
+    environment:
+      - SOCAT_LINK=false
     labels:
       # traefik v2 support
       - "traefik.http.routers.gogs.rule=Host(`gogs.dockerpi.homedev`)"
