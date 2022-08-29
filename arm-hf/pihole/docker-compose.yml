@@ -13,7 +13,7 @@ version: '3.2'
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:2022.05
+    image: pihole/pihole:2022.07.1
     env_file: .env
     labels:
       # traefik v2 support
