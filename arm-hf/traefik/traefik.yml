@@ -22,6 +22,12 @@ entryPoints:
     address: ":53/udp"
   ssh:
     address: ":22/tcp"
+  st-file:
+    address: ":20000/tcp"
+  st-fileudp:
+    address: ":20000/udp"
+  st-discovery:
+    address: ":21027/udp"
 
 #http:
 #  routers:

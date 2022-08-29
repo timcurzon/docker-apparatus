@@ -43,6 +43,9 @@ services:
       - "53:53/udp"
       - "80:80"
       - "7777:8080"
+      - "20000:20000/tcp"
+      - "20000:20000/udp"
+      - "21027:21027/udp"
     volumes:
       - $PWD/traefik.yml:/etc/traefik/traefik.yml
     restart: unless-stopped
