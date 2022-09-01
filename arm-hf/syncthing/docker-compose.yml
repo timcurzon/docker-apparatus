@@ -17,6 +17,7 @@ services:
   syncthing:
     image: syncthing/syncthing:1.20
     container_name: syncthing
+    # Not stricly required, remove?
     #hostname: syncthing
     environment:
       - PUID=1000
@@ -37,7 +38,10 @@ services:
       - "traefik.udp.services.syncthing.loadbalancer.server.port=21027"
       - "traefik.enable=true"
     volumes:
-      - /media/pi/ExternalContent/content/syncthing:/var/syncthing
+      - /media/pi/ExternalContent960/content/syncthing:/var/syncthing
+    # Networking:
+    #  - Enable network_mode: host to improve auto discovery process & resulting sync speeds
+    #  - See https://github.com/syncthing/syncthing/blob/main/README-Docker.md#discovery
     #network_mode: host
     networks:
       - proxy

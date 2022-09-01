@@ -29,7 +29,7 @@ services:
     volumes:
       - /var/content/jellyfin/config:/config
       - /var/content/jellyfin/cache:/cache
-      - /media/pi/ExternalContent/content/media/audio:/media/audio
+      - /media/pi/ExternalContent960/content/media/audio:/media/audio
     # Networking & DLNA
     #  - Enable network_mode: host to get DLNA working (disable networks, host mode precludes bridge networking)
     #  - Also re: DLNA, Traefik & Jellyfin, see: https://github.com/jellyfin/jellyfin/issues/1900#issuecomment-658073153
