@@ -23,9 +23,9 @@ entryPoints:
   ssh:
     address: ":22/tcp"
   st-file:
-    address: ":20000/tcp"
+    address: ":22000/tcp"
   st-fileudp:
-    address: ":20000/udp"
+    address: ":22000/udp"
   st-discovery:
     address: ":21027/udp"
 
