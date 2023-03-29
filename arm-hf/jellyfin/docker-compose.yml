@@ -27,9 +27,9 @@ services:
     # devices:
     #   - "/dev/vchiq:/dev/vchiq"
     volumes:
-      - /var/content/jellyfin/config:/config
-      - /var/content/jellyfin/cache:/cache
-      - /media/pi/ExternalContent960/content/media/audio:/media/audio
+      - /media/${USER}/ExternalContent960/services/jellyfin/config:/config
+      - /media/${USER}/ExternalContent960/services/jellyfin/cache:/cache
+      - /media/${USER}/ExternalContent960/media/audio:/media/audio
     # Networking & DLNA
     #  - Enable network_mode: host to get DLNA working (disable networks, host mode precludes bridge networking)
     #  - Also re: DLNA, Traefik & Jellyfin, see: https://github.com/jellyfin/jellyfin/issues/1900#issuecomment-658073153

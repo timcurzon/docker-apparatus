@@ -27,9 +27,9 @@ services:
       - "traefik.udp.services.pihole.loadbalancer.server.port=53"
       - "traefik.enable=true"
     volumes:
-    # - /var/content/pihole/resolv.conf:/etc/resolv.conf
-      - /var/content/pihole/pihole/:/etc/pihole/
-      - /var/content/pihole/dnsmasq.d/:/etc/dnsmasq.d/
+    # - /media/${USER}/ExternalContent960/services/pihole/resolv.conf:/etc/resolv.conf
+      - /media/${USER}/ExternalContent960/services/pihole/pihole/:/etc/pihole/
+      - /media/${USER}/ExternalContent960/services/pihole/dnsmasq.d/:/etc/dnsmasq.d/
     networks:
       - proxy
     restart: unless-stopped
