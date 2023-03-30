@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# GOGS first run setup -----
-
-mkdir -pv /var/content/gogs
